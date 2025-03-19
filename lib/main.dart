@@ -36,8 +36,12 @@ class _MyAppState extends State<MyApp> {
               preferredSize: Size.fromHeight(120), child: AppbarPage()),
           body: [
             HomePage(),
-            LoginPage(),
-            RegisterPage(),
+            LoginPage(
+              setCurrentIndex: setCurrentIndex,
+            ),
+            RegisterPage(
+              setCurrentIndex: setCurrentIndex,
+            ),
           ][currentIndex],
           bottomNavigationBar: VisitnavbarPage(
               currentIndex: currentIndex, setCurrentIndex: setCurrentIndex)),

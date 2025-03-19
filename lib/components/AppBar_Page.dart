@@ -53,10 +53,9 @@ class _AppbarPageState extends State<AppbarPage> {
                   borderRadius: BorderRadius.circular(50),
                   child: Image.asset(
                     "assets/images/logo.png",
-                    width: 100, // Taille ajustée
-                    height: 100, // Taille ajustée
-                    fit: BoxFit
-                        .cover, // Assurez-vous que l'image ne soit pas déformée
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
