@@ -8,7 +8,9 @@ import 'package:my_first_app/components/Forms/submitForm_component.dart';
 
 class LoginPage extends StatefulWidget {
   final Function(int) setCurrentIndex;
-  const LoginPage({super.key, required this.setCurrentIndex});
+  final Function setLoading;
+  const LoginPage(
+      {super.key, required this.setCurrentIndex, required this.setLoading});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -20,16 +22,21 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: Expanded(
-        child: ListView(shrinkWrap: true, children: [
-          Column(
-            children: [
-              Text(
-                "Connexion",
-                style: GoogleFonts.damion(fontSize: 48),
-              ),
-              LoginformComponent(setCurrentIndex: widget.setCurrentIndex)
-            ],
-          )
+        child: Stack(children: [
+          ListView(shrinkWrap: true, children: [
+            Column(
+              children: [
+                Text(
+                  "Connexion",
+                  style: GoogleFonts.damion(fontSize: 48),
+                ),
+                LoginformComponent(
+                  setCurrentIndex: widget.setCurrentIndex,
+                  setLoading: widget.setLoading,
+                ),
+              ],
+            )
+          ]),
         ]),
       ),
     );

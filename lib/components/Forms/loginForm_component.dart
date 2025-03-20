@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_first_app/Services/get_request.dart';
 import 'package:my_first_app/components/Forms/InputForm_component.dart';
@@ -8,9 +9,9 @@ import 'package:my_first_app/validator/password_validator.dart';
 
 class LoginformComponent extends StatefulWidget {
   final Function(int) setCurrentIndex;
-
-  const LoginformComponent({super.key, required this.setCurrentIndex});
-
+  final Function setLoading;
+  const LoginformComponent(
+      {super.key, required this.setCurrentIndex, required this.setLoading});
   @override
   State<LoginformComponent> createState() => _LoginformComponentState();
 }
@@ -19,11 +20,15 @@ class _LoginformComponentState extends State<LoginformComponent> {
   final formKey = GlobalKey<FormState>();
   final identifiantController = TextEditingController();
   final passwordController = TextEditingController();
-  void onSubmit() {
+  void onSubmit() async {
     final identifiant = identifiantController.text;
     final password = passwordController.text;
     final data = {'identifiant': identifiant, 'password': password};
-    requestGet('http://10.0.2.2:3000/auth/signin', data);
+    widget.setLoading(true);
+    await requestGet('http://10.0.2.2:3000/auth/signin', data)
+        .then((res) => {print("$res")})
+        .catchError((err) => {Fluttertoast.showToast(msg: "$err")})
+        .whenComplete(() => widget.setLoading(false));
   }
 
   @override

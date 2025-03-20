@@ -6,7 +6,10 @@ class SubmitformComponent extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final Function onSubmit;
   const SubmitformComponent(
-      {super.key, required this.buttonText, required this.formKey, required this.onSubmit});
+      {super.key,
+      required this.buttonText,
+      required this.formKey,
+      required this.onSubmit});
 
   @override
   State<SubmitformComponent> createState() => _SubmitformComponentState();
@@ -32,9 +35,9 @@ class _SubmitformComponentState extends State<SubmitformComponent> {
                 child: ElevatedButton(
                     onPressed: () {
                       if (widget.formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Envoie en cours...")));
-                        FocusScope.of(context).requestFocus(FocusNode());
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(content: Text("Envoie en cours...")));
+                        // FocusScope.of(context).requestFocus(FocusNode());
                         widget.onSubmit();
                       }
                     },

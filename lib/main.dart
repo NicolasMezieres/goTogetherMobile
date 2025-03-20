@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_first_app/components/AppBar_Page.dart';
+import 'package:my_first_app/components/loader.dart';
 import 'package:my_first_app/components/navBar/adminNavBar_page.dart';
 import 'package:my_first_app/components/navBar/userNavBar_page.dart';
 import 'package:my_first_app/components/navBar/visitNavBar_page.dart';
@@ -21,9 +22,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int currentIndex = 0;
+  bool isLoading = false;
   setCurrentIndex(int index) {
     setState(() {
       currentIndex = index;
+    });
+  }
+
+  setLoading(bool value) {
+    setState(() {
+      isLoading = value;
     });
   }
 
@@ -34,15 +42,19 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(120), child: AppbarPage()),
-          body: [
-            HomePage(),
-            LoginPage(
-              setCurrentIndex: setCurrentIndex,
-            ),
-            RegisterPage(
-              setCurrentIndex: setCurrentIndex,
-            ),
-          ][currentIndex],
+          body: Stack(children: [
+            [
+              HomePage(),
+              LoginPage(
+                setCurrentIndex: setCurrentIndex,
+                setLoading: setLoading,
+              ),
+              RegisterPage(
+                setCurrentIndex: setCurrentIndex,
+              ),
+            ][currentIndex],
+            if (isLoading == true) Loader(),
+          ]),
           bottomNavigationBar: VisitnavbarPage(
               currentIndex: currentIndex, setCurrentIndex: setCurrentIndex)),
     );
